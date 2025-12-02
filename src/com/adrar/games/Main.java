@@ -9,6 +9,10 @@ public class Main {
         Console playstation4 = new Console("Playstation 3", "Sony");
         //instance d'un objet ConsoleRepository
         ConsoleRepository consoleRepository = new ConsoleRepository();
+        //Afficher la liste des consoles
+        System.out.println(consoleRepository.findAll());
+        //Afficher la console avec son ID
+        System.out.println(consoleRepository.find(5));
         //Test si la console existe
         if (consoleRepository.isExistsByName(playstation4)) {
             System.out.println("La console existe déja");

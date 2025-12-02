@@ -45,6 +45,6 @@ public class Console {
 
     public String toString()
     {
-        return this.name + " : " + this.manufacturer;
+        return this.id + " : " + this.name + " : " + this.manufacturer;
     }
 }

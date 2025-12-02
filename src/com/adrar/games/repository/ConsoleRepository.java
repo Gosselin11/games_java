@@ -36,7 +36,7 @@ public class ConsoleRepository {
                 //récupération de l'ID
                 ResultSet rs = pstmt.getGeneratedKeys();
                 //Test si on à une réponse
-                if (rs.next()){
+                if (rs.next()) {
                     //ide de l'enregistrement
                     int id  = rs.getInt(1);
                     //set de l' id
@@ -48,16 +48,64 @@ public class ConsoleRepository {
         }
         return console;
     }
+
     //Méthode qui retourne une ArrayList de console (Console)
     public ArrayList<Console> findAll()
     {
-        return new ArrayList<Console>();
+        ArrayList<Console> consoles = new ArrayList<>();
+        try {
+            //Ecrire la requête
+            String sql = "SELECT c.id, c.name, c.manufacturer FROM console AS c";
+            //Préparer la requête
+            PreparedStatement pstmt = connect.prepareStatement(sql);
+            //Exécution de la requête
+            ResultSet rs = pstmt.executeQuery();
+            //Boucle sur le résultat
+            while (rs.next()) {
+                //Créer un objet console (Console)
+                Console console = new Console();
+                //Setter les valeurs
+                console.setId(rs.getInt("id"));
+                console.setName(rs.getString("name"));
+                console.setManufacturer(rs.getString("manufacturer"));
+                //Ajouter la console (Console) à la liste
+                consoles.add(console);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return consoles;
     }
 
     //Méthode qui retourne une console depuis son id
     public Console find(int id)
     {
-        return new Console();
+        //Création d'un objet console à null
+        Console console = null;
+        try {
+            //Ecrire la requête
+            String sql = "SELECT c.id, c.name, c.manufacturer FROM console AS c WHERE c.id = ?";
+            //Préparer la requête
+            PreparedStatement pstmt = connect.prepareStatement(sql);
+            //Assigner le paramètre
+            pstmt.setInt(1, id);
+            //Exécution de la requête
+            ResultSet rs = pstmt.executeQuery();
+            //Boucle sur le résultat
+            while (rs.next()) {
+                //Créer un objet console (Console)
+                console = new Console();
+                //Setter les valeurs
+                console.setId(rs.getInt("id"));
+                console.setName(rs.getString("name"));
+                console.setManufacturer(rs.getString("manufacturer"));
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return console;
     }
 
     //méthode qui test si une console (Console) avec son name existe
