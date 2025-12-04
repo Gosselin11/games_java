@@ -22,9 +22,9 @@ public class GameRepository {
         ArrayList<Game> games = new ArrayList<>();
         try {
             //Requête SQL
-            String sql = "SELECT video_game.id, video_game.`type`, video_game.title, video_game.publish_at ," +
-                    " video_game.id_console, console.name, console.manufacturer FROM video_game " +
-                    "INNER JOIN console ON video_game.id_console = console.id";
+            String sql = "SELECT game.id, game.`type`, game.title, game.publish_at ," +
+                    " game.id_console, console.name, console.manufacturer FROM game " +
+                    "INNER JOIN console ON game.id_console = console.id";
             //Préparer la Requête
             PreparedStatement pstmt = this.connect.prepareStatement(sql);
             //Exécuter la requête
@@ -57,9 +57,9 @@ public class GameRepository {
         Game game = null;
         try {
             //requête SQL
-            String sql = "SELECT video_game.id, video_game.`type`, video_game.title, video_game.publish_at ," +
-                    " video_game.id_console, console.name, console.manufacturer FROM video_game " +
-                    "INNER JOIN console ON video_game.id_console = console.id WHERE video_game.id = ?";
+            String sql = "SELECT game.id, game.`type`, game.title, game.publish_at ," +
+                    " game.id_console, console.name, console.manufacturer FROM game " +
+                    "INNER JOIN console ON game.id_console = console.id WHERE game.id = ?";
             //préparation de la requête
             PreparedStatement pstmt = this.connect.prepareStatement(sql);
             //Assigner le paramètre
@@ -91,7 +91,7 @@ public class GameRepository {
     {
         try {
             //Requête SQL
-            String sql = "INSERT INTO video_game(title, type, publish_at, id_console) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO game(title, type, publish_at, id_console) VALUES (?, ?, ?, ?)";
             //préparer la requête
             PreparedStatement pstmt = this.connect.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             //Assigner les 4 paramètres
